@@ -1,0 +1,24 @@
+{
+  "name": "berkshire-ap-coding-challenge",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/berkshire-ap-coding-challenge/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "berkshire-ap-coding-challenge:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "berkshire-ap-coding-challenge:build:development"
+        },
+        "production": {
+          "buildTarget": "berkshire-ap-coding-challenge:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
