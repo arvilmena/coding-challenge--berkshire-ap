@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16
+    ports:
+      - '11111:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: berkshire-ap-coding-challenge
+    networks:
+      - berkshire-ap-coding-challenge
+    volumes:
+      - ./docker/pgdata/data:/var/lib/postgresql/data
+networks:
+  berkshire-ap-coding-challenge:
