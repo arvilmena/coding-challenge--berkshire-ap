@@ -1,0 +1,56 @@
+{
+  "name": "seeder",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/seeder/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/apps/seeder",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "apps/seeder/src/main.ts",
+        "tsConfig": "apps/seeder/tsconfig.app.json",
+        "assets": ["apps/seeder/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "run": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "seeder:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "seeder:build:development"
+        },
+        "production": {
+          "buildTarget": "seeder:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

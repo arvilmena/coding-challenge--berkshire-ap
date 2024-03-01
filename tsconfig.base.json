@@ -1,6 +1,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strict": true,
+    "strictNullChecks": true,
+    "types": ["@total-typescript/ts-reset"],
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
@@ -14,7 +17,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@mycodingchallenge/core": [
+        "packages/mycodingchallenge-core/src/index.ts"
+      ],
+      "@mycodingchallenge/db": ["packages/db/src/index.ts"],
+      "@mycodingchallenge/repository": ["packages/repository/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

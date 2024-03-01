@@ -1,0 +1,23 @@
+{
+  "name": "mycodingchallenge-core",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/mycodingchallenge-core/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/mycodingchallenge-core",
+        "main": "packages/mycodingchallenge-core/src/index.ts",
+        "tsConfig": "packages/mycodingchallenge-core/tsconfig.lib.json",
+        "assets": ["packages/mycodingchallenge-core/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs mycodingchallenge-core {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    }
+  },
+  "tags": []
+}

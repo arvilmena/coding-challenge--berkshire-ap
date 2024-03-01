@@ -1,0 +1,23 @@
+{
+  "name": "db",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/db/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/db",
+        "main": "packages/db/src/index.ts",
+        "tsConfig": "packages/db/tsconfig.lib.json",
+        "assets": ["packages/db/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs db {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,23 @@
+{
+  "name": "repository",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/repository/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/repository",
+        "main": "packages/repository/src/index.ts",
+        "tsConfig": "packages/repository/tsconfig.lib.json",
+        "assets": ["packages/repository/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs repository {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    }
+  },
+  "tags": []
+}
