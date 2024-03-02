@@ -1,6 +1,8 @@
 import { db, vehicle } from '@mycodingchallenge/db';
 import { and, eq } from 'drizzle-orm';
-import { VehicleIdType } from './vehicleRepository';
+import { SelectVehicle, VehicleIdType } from './vehicleRepository';
+
+export type Motorcycle = SelectVehicle & { vehicleType: 'motorcycle' };
 
 export class MotorcycleRepository {
   async findById(id: VehicleIdType) {

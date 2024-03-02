@@ -1,6 +1,6 @@
 import { db, vehicle } from '@mycodingchallenge/db';
 import { eq } from 'drizzle-orm';
-import { createInsertSchema } from 'drizzle-zod';
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
 export const insertVehicleSchema = createInsertSchema(vehicle, {
@@ -8,12 +8,16 @@ export const insertVehicleSchema = createInsertSchema(vehicle, {
 });
 type VehicleInsertType = z.infer<typeof insertVehicleSchema>;
 export type VehicleType = VehicleInsertType['vehicleType'];
-const vehicleIdSchema = z.number().nonnegative();
+export const vehicleIdSchema = z.number().nonnegative();
 export type VehicleIdType = z.infer<typeof vehicleIdSchema>;
+
+export const selectVehicleSchema = createSelectSchema(vehicle);
+export type SelectVehicle = z.infer<typeof selectVehicleSchema>;
 
 export class VehicleRepository {
   async insert(data: VehicleInsertType) {
-    return await db.insert(vehicle).values(data).returning();
+    const d = await db.insert(vehicle).values(data).returning();
+    return d[0];
   }
 
   async findAll() {
@@ -21,7 +25,8 @@ export class VehicleRepository {
   }
 
   async deleteById(id: VehicleIdType) {
-    return await db.delete(vehicle).where(eq(vehicle.id, id)).returning();
+    const d = await db.delete(vehicle).where(eq(vehicle.id, id)).returning();
+    return d[0];
   }
 
   async findById(id: VehicleIdType) {
@@ -37,10 +42,11 @@ export class VehicleRepository {
     id: VehicleIdType,
     data: z.infer<typeof insertVehicleSchema>
   ) {
-    return await db
+    const d = await db
       .update(vehicle)
       .set(data)
       .where(eq(vehicle.id, id))
       .returning();
+    return d[0];
   }
 }

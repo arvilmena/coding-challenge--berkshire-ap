@@ -5,6 +5,19 @@ import pLimit from 'p-limit';
 import { carData } from './carData';
 import { motorcycleData } from './motorcycleData';
 
+// import { type Car, type Motorcycle } from '@mycodingchallenge/repository';
+// type Vehicle = Car | Motorcycle;
+// const polymorphicTest = (vehicle: Vehicle): Vehicle => {
+//   switch (vehicle.vehicleType) {
+//     case 'car':
+//       return vehicle;
+//     case 'motorcycle':
+//       return vehicle;
+//     default:
+//       throw new Error('Invalid vehicle type');
+//   }
+// };
+
 function seed() {
   const carSeedLimit = pLimit(10);
 

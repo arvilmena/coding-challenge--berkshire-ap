@@ -2,13 +2,14 @@ import { db, vehicle } from '@mycodingchallenge/db';
 import { and, eq } from 'drizzle-orm';
 import { createInsertSchema } from 'drizzle-zod';
 import { z } from 'zod';
-import { VehicleIdType } from './vehicleRepository';
+import { SelectVehicle, VehicleIdType } from './vehicleRepository';
 
 export const insertCarSchema = createInsertSchema(vehicle, {
   id: z.never(),
   vehicleType: undefined,
 });
 
+export type Car = SelectVehicle & { vehicleType: 'car' };
 export class CarRepository {
   async findById(id: VehicleIdType) {
     return await db
