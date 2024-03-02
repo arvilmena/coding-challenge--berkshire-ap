@@ -1,5 +1,5 @@
 import { db, vehicle } from '@mycodingchallenge/db';
-import { eq } from 'drizzle-orm';
+import { asc, eq } from 'drizzle-orm';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
@@ -11,8 +11,11 @@ export type VehicleType = VehicleInsertType['vehicleType'];
 export const vehicleIdSchema = z.number().nonnegative();
 export type VehicleIdType = z.infer<typeof vehicleIdSchema>;
 
-export const selectVehicleSchema = createSelectSchema(vehicle);
-export type SelectVehicle = z.infer<typeof selectVehicleSchema>;
+export const vehicleSelectSchema = createSelectSchema(vehicle);
+export type Vehicle = Omit<
+  z.infer<typeof vehicleSelectSchema>,
+  'model' | 'brand'
+>;
 
 export class VehicleRepository {
   async insert(data: VehicleInsertType) {
@@ -21,7 +24,7 @@ export class VehicleRepository {
   }
 
   async findAll() {
-    return await db.select().from(vehicle);
+    return await db.select().from(vehicle).orderBy(asc(vehicle.id));
   }
 
   async deleteById(id: VehicleIdType) {

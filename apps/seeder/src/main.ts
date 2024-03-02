@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { carRepository } from '@mycodingchallenge/core';
+import { carRepository, motorcycleRepository } from '@mycodingchallenge/core';
 import 'dotenv/config';
 import pLimit from 'p-limit';
 import { carData } from './carData';
@@ -48,7 +48,7 @@ function seed() {
   const motorcyclesPromise = Promise.all(
     motorCycleSeed.map((motorcycle) =>
       motorCycleSeedLimit(() =>
-        carRepository.insert({
+        motorcycleRepository.insert({
           ...motorcycle,
           ownerName: faker.person.fullName(),
         })

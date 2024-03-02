@@ -1,7 +1,7 @@
 import { extendZodWithOpenApi } from '@anatine/zod-openapi';
 import {
   insertVehicleSchema,
-  selectVehicleSchema,
+  vehicleSelectSchema,
 } from '@mycodingchallenge/repository';
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
@@ -14,7 +14,7 @@ export const myTsRestContract = c.router({
     method: 'GET',
     path: `/vehicles`,
     responses: {
-      200: selectVehicleSchema.array().openapi({
+      200: vehicleSelectSchema.array().openapi({
         title: 'Vehicles',
         description: 'All vehicles',
       }),
@@ -32,7 +32,7 @@ export const myTsRestContract = c.router({
       }),
     }),
     responses: {
-      200: selectVehicleSchema.nullable(),
+      200: vehicleSelectSchema.nullable(),
       404: z.null().openapi({
         title: '404 Error',
         description: 'Vehicle with the supplied ID is not found.',
@@ -46,7 +46,7 @@ export const myTsRestContract = c.router({
     method: 'POST',
     path: '/vehicles',
     responses: {
-      201: selectVehicleSchema,
+      201: vehicleSelectSchema,
       400: z.undefined().openapi({
         title: 'Bad Request',
         description:
@@ -67,7 +67,7 @@ export const myTsRestContract = c.router({
       }),
     }),
     responses: {
-      200: selectVehicleSchema,
+      200: vehicleSelectSchema,
     },
     body: insertVehicleSchema,
     description:

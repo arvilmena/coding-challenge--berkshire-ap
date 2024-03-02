@@ -1,26 +1,33 @@
 import { db, vehicle } from '@mycodingchallenge/db';
-import { and, eq } from 'drizzle-orm';
+import { asc, eq } from 'drizzle-orm';
 import { createInsertSchema } from 'drizzle-zod';
 import { z } from 'zod';
-import { SelectVehicle, VehicleIdType } from './vehicleRepository';
+import { vehicleSelectSchema } from './vehicleRepository';
 
 export const insertCarSchema = createInsertSchema(vehicle, {
   id: z.never(),
   vehicleType: undefined,
 });
 
-export type Car = SelectVehicle & { vehicleType: 'car' };
+export const carSelectSchema = vehicleSelectSchema.extend({
+  vehicleType: z.literal('car'),
+  model: z.string(),
+  brand: z.string(),
+});
+
+export type Car = z.infer<typeof carSelectSchema>;
+
 export class CarRepository {
-  async findById(id: VehicleIdType) {
-    return await db
+  async getAll(): Promise<Car[]> {
+    const r = await db
       .select()
       .from(vehicle)
-      .where(and(eq(vehicle.vehicleType, 'car'), eq(vehicle.id, id)));
+      .where(eq(vehicle.vehicleType, 'car'))
+      .orderBy(asc(vehicle.id));
+    return carSelectSchema.array().parse(r);
   }
+
   async insert(data: Omit<z.infer<typeof insertCarSchema>, 'vehicleType'>) {
-    return await db
-      .insert(vehicle)
-      .values({ ...data, vehicleType: 'car' })
-      .returning();
+    return await db.insert(vehicle).values({ ...data, vehicleType: 'car' });
   }
 }
