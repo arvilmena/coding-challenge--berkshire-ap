@@ -14,7 +14,7 @@
 - run `pnpm install`
 - copy `.env copy` to `.env`
 - update `.env` to your corresponding environment settings
-- if using Docker, start docker: `docker compose up dev -d`
+- if using Docker, start docker: `docker compose up -d`
   - might take a while if your Docker hasn't downloaded Postgres image before
 - once the DB/Docker is running, execute the DB migration files: `pnpm db:migrate`
 
