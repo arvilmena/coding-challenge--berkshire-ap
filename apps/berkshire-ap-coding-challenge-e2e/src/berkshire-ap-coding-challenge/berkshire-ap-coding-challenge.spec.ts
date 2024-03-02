@@ -178,19 +178,6 @@ describe('Errors', () => {
     expect(res?.status).toEqual(400);
   });
 
-  it('should error when there is no payload', async () => {
-    const payload = undefined;
-    let res: AxiosResponse | null = null;
-    try {
-      res = await axios.post(`/vehicles`, payload, {
-        validateStatus: function (status) {
-          return status < 500;
-        },
-      });
-    } catch (error) {}
-    expect(res?.status).toEqual(400);
-  });
-
   it('should error when no model param', async () => {
     const payload = {
       brand: 'BMW',

@@ -68,6 +68,10 @@ export const myTsRestContract = c.router({
     }),
     responses: {
       200: vehicleSelectSchema,
+      404: z.null().openapi({
+        title: '404 Error',
+        description: 'Vehicle with the supplied ID is not found.',
+      }),
     },
     body: insertVehicleSchema,
     description:
