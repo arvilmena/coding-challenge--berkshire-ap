@@ -2,6 +2,12 @@
 
 ## Simple Vehicle API
 
+This is a simple vehicle API that allows you to create, read, update and delete vehicles.
+
+A video that shows how to setup the repository, how it works, and a quick walkthrough of the code is available at [this video](https://www.youtube.com/watch?v=gG8d-I5Bhi0)
+
+[![watch Walthrough Video](./images/video-preview.png 'Video preview')](https://www.youtube.com/watch?v=gG8d-I5Bhi0)
+
 ### Requirements
 
 - [NodeJS >= 20](https://nodejs.org/en)
@@ -52,11 +58,11 @@ A more UI friendly documentation is served at [http://localhost:11110/docs](http
 
 #### Via Swagger UI
 
-The [http://localhost:11110/docs](docs) interactive docs allows you to test each endpoint from your browser. The endpoint specification, schema and parameters are defined in the document.
+The [docs](http://localhost:11110/docs) interactive docs allows you to test each endpoint from your browser. The endpoint specification, schema and parameters are defined in the document.
 
 #### Via API Client
 
-The [http://localhost:11110/open-api](open-api page) will generate a OpenAPI v3 Spec that you can import on your API client. Once imported, you can use your API client to do the testing.
+The [open-api page](http://localhost:11110/open-api) will generate a OpenAPI v3 Spec that you can import on your API client. Once imported, you can use your API client to do the testing.
 
 #### Automated Testing
 
